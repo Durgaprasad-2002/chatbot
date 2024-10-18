@@ -4,7 +4,7 @@
   "description": "The Application serves as the sever for the ChatBot Application",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "author": "Durga Prasad",
   "license": "ISC",
