@@ -42,7 +42,10 @@ export default function Login() {
           localStorage.removeItem("Responses");
         }, 8.64e7 / 2);
 
-        localStorage.setItem("username", JSON.stringify(username));
+        localStorage.setItem(
+          "username",
+          JSON.stringify(username.toUpperCase())
+        );
         localStorage.setItem("token", JSON.stringify(token));
 
         navigate("/");
@@ -63,7 +66,7 @@ export default function Login() {
 
   return (
     <div className="sign-up-container Container-vh">
-      <form className="form-container" onSubmit={handleSubmit}>
+      <form className="form-container fade-in" onSubmit={handleSubmit}>
         <h2>Login</h2>
 
         <div className="form-field-container">

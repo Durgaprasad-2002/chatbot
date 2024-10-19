@@ -9,6 +9,7 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const [loading, setloading] = useState(false);
+  const [msg, setMsg] = useState("");
 
   const [formData, setformData] = useState({
     username: "",
@@ -22,9 +23,26 @@ export default function SignUp() {
     });
   }
 
+  function validatePassword(password) {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+    if (regex.test(password)) {
+      return true;
+    }
+    return false;
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
+    setMsg("");
     setloading(() => true);
+    if (!validatePassword(formData.password)) {
+      setloading(false);
+      setMsg(
+        "Password must be at least 8 characters long and include at least one lowercase, one uppercase letter, one number and one special character."
+      );
+      return toast.warning("Password is weak");
+    }
 
     axios
       .post("https://chatbot-doj3.onrender.com/user/register", { ...formData })
@@ -51,7 +69,7 @@ export default function SignUp() {
 
   return (
     <div className="sign-up-container Container-vh">
-      <form className="form-container" onSubmit={handleSubmit}>
+      <form className="form-container fade-in" onSubmit={handleSubmit}>
         <h2>Create an account</h2>
         <div className="form-field-container">
           <input
@@ -96,9 +114,12 @@ export default function SignUp() {
             Password
           </label>
         </div>
+
+        <p className="red-error">{msg}</p>
+
         <div className="form-field-container">
           <button type="submit" className="submit-btn" disabled={loading}>
-            {loading ? "Registering..." : "Submit"}
+            {loading ? "Registering..." : "Register"}
           </button>
         </div>
 

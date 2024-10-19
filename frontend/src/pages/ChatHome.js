@@ -81,7 +81,9 @@ export default function ChatHome() {
             {!isResponseExists ? (
               <div className="no-response-container">
                 {" "}
-                <h1>Hello {username}, What can I help with?</h1>
+                <h1>
+                  Hello{username ? ` ${username}` : ""}, What can I help with?
+                </h1>
               </div>
             ) : (
               // component to display the responses got from server based on query

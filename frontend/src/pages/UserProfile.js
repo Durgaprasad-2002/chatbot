@@ -67,15 +67,7 @@ export default function UserProfile() {
               {Responses.length === 0 && loading === false ? (
                 <div className="no-response-container">
                   {" "}
-                  <h2>
-                    you didn't saved anything, start making responses to save
-                  </h2>
-                  <Link to="/">
-                    {" "}
-                    <button className="view-response-btn">
-                      Start Querying
-                    </button>
-                  </Link>
+                  <h2>'{user.username}' didn't saved anything!</h2>
                 </div>
               ) : (
                 <ResponsesContainer responses={Responses} />
