@@ -1,10 +1,10 @@
 import React from "react";
 import Response from "./Response";
 
-export default function ResponsesContainer({ responses }) {
+function ResponsesContainer({ responses }) {
   return (
     <>
-      <div className="UserProfile-body">
+      <div>
         <div className="User-profile-inner">
           <div className="response-outer">
             <h3>Saved Responses</h3>
@@ -42,3 +42,5 @@ export default function ResponsesContainer({ responses }) {
     </>
   );
 }
+
+export default React.memo(ResponsesContainer);

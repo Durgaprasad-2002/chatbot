@@ -381,6 +381,7 @@ text-align: center;
 
 
 .Holder-Chat{
+    border-top: 1px solid #ededed;
     background-color: white;
     position: fixed;
     width: 100%;

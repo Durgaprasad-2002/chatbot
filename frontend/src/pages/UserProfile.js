@@ -23,7 +23,7 @@ export default function UserProfile() {
     if (!token) return navigate("/login");
     setLoading(true);
     axios
-      .get(`http://localhost:5000/response/user?userId=${userId}`, {
+      .get(`https://chatbot-doj3.onrender.com/response/user?userId=${userId}`, {
         headers: {
           Authorization: `${token}`,
         },
@@ -55,34 +55,34 @@ export default function UserProfile() {
               </p>
             </div>
           </div>
-          <>
-            {loading === true ? (
-              <div className="no-response-container">
-                {" "}
-                <Loader />
-              </div>
-            ) : (
-              <>
-                {Responses.length === 0 && loading === false ? (
-                  <div className="no-response-container">
-                    {" "}
-                    <h2>
-                      you didn't saved anything, start making responses to save
-                    </h2>
-                    <Link to="/">
-                      {" "}
-                      <button className="view-response-btn">
-                        Start Querying
-                      </button>
-                    </Link>
-                  </div>
-                ) : (
-                  <ResponsesContainer responses={Responses} />
-                )}
-              </>
-            )}
-          </>
         </div>
+        <>
+          {loading === true ? (
+            <div className="no-response-container">
+              {" "}
+              <Loader />
+            </div>
+          ) : (
+            <>
+              {Responses.length === 0 && loading === false ? (
+                <div className="no-response-container">
+                  {" "}
+                  <h2>
+                    you didn't saved anything, start making responses to save
+                  </h2>
+                  <Link to="/">
+                    {" "}
+                    <button className="view-response-btn">
+                      Start Querying
+                    </button>
+                  </Link>
+                </div>
+              ) : (
+                <ResponsesContainer responses={Responses} />
+              )}
+            </>
+          )}
+        </>
       </div>
     </>
   );

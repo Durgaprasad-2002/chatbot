@@ -12,6 +12,7 @@ export default function ChatHome() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const username = JSON.parse(localStorage.getItem("username"));
   const token = JSON.parse(localStorage.getItem("token"));
   const reduxResponses = useSelector((state) => state.responsesReducer);
 
@@ -20,6 +21,7 @@ export default function ChatHome() {
   const [value, setValue] = useState("");
   const [valueExists, setValueExists] = useState(false);
 
+  //Function to update the responses to redux
   function setChats(data) {
     dispatch(
       addResponse({
@@ -28,25 +30,29 @@ export default function ChatHome() {
     );
   }
 
-  function HandleSubmit(e) {
+  //Function to get query response from server
+  async function HandleSubmit(e) {
     if (!token) {
-      toast.info("Please login to use features", { autoClose: 5000 });
+      toast.info("please login to use features", { autoClose: 5000 });
       navigate("/login");
       return;
     }
     setLoading(() => true);
     setValueExists(false);
     e.preventDefault();
-    axios
-      .post("http://localhost:5000/api/chat", { token, query: value })
+    await axios
+      .post("https://chatbot-doj3.onrender.com/api/chat", {
+        token,
+        query: value,
+      })
       .then(({ data }) => {
         setValue(() => "");
         document.getElementsByClassName("chat-input")[0].innerHTML = "";
         setChats(data);
-        console.log(data);
       })
       .catch((err) => {
         console.log(err);
+        toast.info("failed to get response, Try again", { autoClose: 3000 });
       })
       .finally(() => {
         setLoading(() => false);
@@ -75,19 +81,16 @@ export default function ChatHome() {
             {!isResponseExists ? (
               <div className="no-response-container">
                 {" "}
-                <h1>What can I help with?</h1>
+                <h1>Hello {username}, What can I help with?</h1>
               </div>
             ) : (
-              <>
-                <ResponsesChatComp
-                  responses={reduxResponses}
-                  loading={loading}
-                />
-              </>
+              // component to display the responses got from server based on query
+              <ResponsesChatComp responses={reduxResponses} loading={loading} />
             )}
           </>
         )}
       </div>
+      {/* Query entering input field */}
       <QueryTextBox
         value={value}
         HandleSubmit={HandleSubmit}

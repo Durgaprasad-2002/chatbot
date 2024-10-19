@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -11,27 +12,32 @@ export default function History() {
 
   const token = JSON.parse(localStorage.getItem("token"));
 
+  const reduxResponses = useSelector((state) => state.responsesReducer);
+
   const [loading, setLoading] = useState(false);
   const [responses, setResponses] = useState([]);
 
   useEffect(() => {
     if (!token) return navigate("/login");
     setLoading(true);
-    axios
-      .get(`http://localhost:5000/response/user`, {
-        headers: {
-          Authorization: `${token}`,
-        },
-      })
-      .then(({ data }) => {
-        console.log(data);
-        setResponses(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+
+    const FetchResponses = async () => {
+      await axios
+        .get(`https://chatbot-doj3.onrender.com/response/user`, {
+          headers: {
+            Authorization: `${token}`,
+          },
+        })
+        .then(({ data }) => {
+          setResponses(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => setLoading(false));
+    };
+    FetchResponses();
+  }, [navigate, reduxResponses, token]);
 
   return (
     <>

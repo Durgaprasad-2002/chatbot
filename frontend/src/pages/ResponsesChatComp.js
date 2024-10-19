@@ -4,7 +4,7 @@ import { HiOutlineSave } from "react-icons/hi";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export default function ResponseDisplayer({ responses, loading }) {
+function ResponsesChatComp({ responses, loading }) {
   const loadingRef = useRef();
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -17,7 +17,10 @@ export default function ResponseDisplayer({ responses, loading }) {
 
   function handleSaveResponse(response) {
     axios
-      .post("http://localhost:5000/response/", { ...response, token })
+      .post("https://chatbot-doj3.onrender.com/response/", {
+        ...response,
+        token,
+      })
       .then(({ data }) => {
         toast.success("Response Saved to Database", {
           autoClose: 3000,
@@ -85,6 +88,8 @@ export default function ResponseDisplayer({ responses, loading }) {
     </>
   );
 }
+
+export default React.memo(ResponsesChatComp);
 
 // import React, { useRef, useEffect } from "react";
 // import "./styles.css";

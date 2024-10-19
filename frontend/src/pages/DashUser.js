@@ -12,7 +12,7 @@ function DashUser({ user }) {
   function ResponsesCount(Id) {
     axios
       .get(
-        `http://localhost:5000/response/user/response/count?userId=${user._id}`,
+        `https://chatbot-doj3.onrender.com/response/user/response/count?userId=${user._id}`,
         {
           headers: {
             Authorization: `${token}`,

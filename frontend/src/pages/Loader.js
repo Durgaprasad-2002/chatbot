@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles.css";
 
-export default function Loader() {
+function Loader() {
   return (
     <div>
       <div class="three-body">
@@ -12,3 +12,5 @@ export default function Loader() {
     </div>
   );
 }
+
+export default React.memo(Loader);

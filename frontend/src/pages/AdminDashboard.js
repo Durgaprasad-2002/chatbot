@@ -16,7 +16,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (!token) return navigate("/login");
     axios
-      .get("http://localhost:5000/user/users", {
+      .get("https://chatbot-doj3.onrender.com/user/users", {
         headers: {
           Authorization: `${token}`,
         },

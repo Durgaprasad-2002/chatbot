@@ -27,7 +27,7 @@ export default function SignUp() {
     setloading(() => true);
 
     axios
-      .post("http://localhost:5000/user/register", { ...formData })
+      .post("https://chatbot-doj3.onrender.com/user/register", { ...formData })
       .then((data) => {
         toast.info("You are Registered", {
           hideProgressBar: false,
